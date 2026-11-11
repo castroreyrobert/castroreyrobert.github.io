@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rey Robert Castro</title>
+<meta name="description" content="Rey Robert Castro, Android and Flutter engineer in Cebu City. Projects from Java to Kotlin, Jetpack Compose and Flutter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: dark "IDE" hero band with a dotted layout-bounds grid, then a light reading column (68ch) with a vertical release timeline */
+:root{
+  --bg:#f6f7fb; --surface:#ffffff; --ink:#111827; --muted:#465063; --line:#dfe3ec;
+  --accent:#2f5be0; --accent-soft:#e8eefe; --mint:#0f8a6a;
+  --hero:#0d1320; --hero-ink:#eef2fa; --hero-muted:#a9b4c9; --hero-line:#243049;
+  --kotlin:#7f52ff; --java:#b26a12; --dart:#0a7ea6;
+  --shadow:0 1px 2px rgba(17,24,39,.05), 0 8px 24px -12px rgba(17,24,39,.18);
+  --display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1019; --surface:#131a27; --ink:#eef2fa; --muted:#b0bacc; --line:#273248;
+  --accent:#93acff; --accent-soft:#1b2747; --mint:#4fd1a8;
+  --hero:#070b12; --hero-line:#1c2638;
+  --kotlin:#b9a3ff; --java:#eaa95b; --dart:#62c8ec;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1019; --surface:#131a27; --ink:#eef2fa; --muted:#b0bacc; --line:#273248;
+  --accent:#93acff; --accent-soft:#1b2747; --mint:#4fd1a8;
+  --hero:#070b12; --hero-line:#1c2638;
+  --kotlin:#b9a3ff; --java:#eaa95b; --dart:#62c8ec;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.7 var(--body);-webkit-font-smoothing:antialiased}
+.in{max-width:1040px;margin:0 auto;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px))}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.mono{font-family:var(--mono)}
+
+/* ---------- hero ---------- */
+.hero{background:var(--hero);color:var(--hero-ink);
+  background-image:radial-gradient(var(--hero-line) 1px, transparent 1.2px);background-size:22px 22px}
+.hero .in{padding-block:72px 64px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.who{display:flex;flex-direction:column;gap:22px;min-width:0}
+.id{display:flex;align-items:center;gap:16px}
+.avatar{width:72px;height:72px;border-radius:50%;border:2px solid var(--hero-line);flex:none}
+.status{display:inline-flex;align-items:center;gap:8px;font:500 13px/1 var(--mono);color:var(--hero-muted);
+  border:1px solid var(--hero-line);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.03)}
+.status i{width:8px;height:8px;border-radius:50%;background:#3ddc97;box-shadow:0 0 0 4px rgba(61,220,151,.15)}
+h1{font:800 clamp(2.6rem,7vw,4.6rem)/.98 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
+h1 span{color:#9db4ff}
+.lede{font-size:1.2rem;line-height:1.6;color:var(--hero-muted);max-width:34ch;margin:0}
+.lede b{color:var(--hero-ink);font-weight:500}
+.links{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 18px;border-radius:10px;font:600 15px/1 var(--body);text-decoration:none;
+  border:1px solid var(--hero-line);color:var(--hero-ink);background:rgba(255,255,255,.04)}
+.btn.primary{background:#eef2fa;color:#0d1320;border-color:#eef2fa}
+.btn svg{width:18px;height:18px;fill:currentColor}
+.btn:hover{transform:translateY(-1px)}
+
+.ide{background:#111a2b;border:1px solid var(--hero-line);border-radius:14px;overflow:hidden;min-width:0;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.ide-bar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--hero-line);font:400 12.5px/1 var(--mono);color:var(--hero-muted)}
+.ide-bar i{width:10px;height:10px;border-radius:50%;background:#2c3850}
+.ide-bar span{margin-left:8px}
+.ide pre{margin:0;padding:18px 20px;overflow-x:auto;font:400 14px/1.8 var(--mono);color:#c9d3e6}
+.k{color:#c3a6ff}.s{color:#8fe3b8}.n{color:#ffcf7a}.c{color:#6c7a94}
+
+.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hero-line);border:1px solid var(--hero-line);border-radius:12px;overflow:hidden}
+.stats div{background:var(--hero);padding:18px 20px;display:flex;flex-direction:column;gap:4px}
+.stats b{font:700 1.9rem/1 var(--display);font-variant-numeric:tabular-nums}
+.stats span{font-size:13.5px;color:var(--hero-muted)}
+
+/* ---------- sections ---------- */
+main .in{display:flex;flex-direction:column;gap:88px;padding-block:80px 64px}
+.sec{display:flex;flex-direction:column;gap:28px}
+.sec-head{display:flex;flex-direction:column;gap:8px;max-width:62ch}
+.eyebrow{font:600 12.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h2{font:800 clamp(1.8rem,3.6vw,2.4rem)/1.1 var(--display);letter-spacing:-.025em;margin:0;text-wrap:balance}
+.sec-head p{margin:0;color:var(--muted);font-size:1.05rem}
+
+.stack{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.skill h3{margin:0;font:600 17px/1.3 var(--body)}
+.skill ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.skill li{font:400 13px/1 var(--mono);padding:7px 9px;border-radius:7px;background:var(--accent-soft);color:var(--ink)}
+.ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* timeline */
+.timeline{display:flex;flex-direction:column;gap:56px;position:relative}
+.release{display:grid;grid-template-columns:170px 1fr;gap:32px;position:relative}
+.ver{position:sticky;top:24px;align-self:start;display:flex;flex-direction:column;gap:6px;padding-left:22px;border-left:3px solid var(--accent)}
+.ver .v{font:800 2rem/1 var(--display);letter-spacing:-.02em}
+.ver .y{font:500 14px/1.2 var(--mono);color:var(--muted)}
+.ver .t{font-size:15px;color:var(--muted);line-height:1.5;margin-top:6px}
+.cards{min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.repo{display:flex;flex-direction:column;gap:12px;padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow);text-decoration:none;color:var(--ink);min-width:0}
+.repo:hover{border-color:var(--accent);transform:translateY(-2px)}
+.repo-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.repo h3{margin:0;font:600 18px/1.3 var(--body);overflow-wrap:anywhere}
+.lang{display:inline-flex;align-items:center;gap:7px;font:500 13px/1 var(--mono);color:var(--muted);white-space:nowrap}
+.dot{width:10px;height:10px;border-radius:50%}
+.l-kotlin .dot{background:var(--kotlin)}.l-java .dot{background:var(--java)}.l-dart .dot{background:var(--dart)}
+.repo p{margin:0;font-size:15.5px;line-height:1.6;color:var(--muted);flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:400 12.5px/1 var(--mono);padding:6px 9px;border-radius:999px;border:1px solid var(--line);color:var(--ink)}
+.more{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.more .lbl{font-size:14px;color:var(--muted);margin-right:4px}
+.more a{font:400 13.5px/1 var(--mono);padding:9px 12px;border:1px dashed var(--line);border-radius:8px;text-decoration:none;color:var(--ink)}
+.more a:hover{border-color:var(--accent);border-style:solid;color:var(--accent)}
+
+/* studying */
+.study{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.study a{display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:14px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line)}
+.study a:hover{border-color:var(--accent);transform:translateY(-2px)}
+.study b{font:600 14.5px/1.35 var(--mono);overflow-wrap:anywhere}
+.study span{font-size:14.5px;color:var(--muted);line-height:1.5}
+
+/* contact */
+.cta{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:40px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;box-shadow:var(--shadow)}
+.cta h2{max-width:20ch}
+.cta .btn{border-color:var(--line);color:var(--ink);background:var(--bg)}
+.cta .btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+footer .in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px;padding-block:28px 40px;border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:no-preference){.repo,.btn,.study a{transition:transform .18s ease,border-color .18s ease}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (max-width:900px){
+  .hero .in{grid-template-columns:1fr;gap:36px;padding-block:56px 48px}
+  .stack,.study{grid-template-columns:1fr 1fr}
+  .release{grid-template-columns:1fr;gap:20px}
+  .ver{position:static}
+}
+@media (max-width:620px){
+  body{font-size:16.5px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stack,.study,.cards{grid-template-columns:1fr}
+  .cta{padding:28px 22px}
+  main .in{gap:68px;padding-block:60px 48px}
+}
+
+/* experience */
+.jobs{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:7px}
+.job{position:relative;padding:0 0 40px 32px;display:grid;grid-template-columns:1fr auto;gap:6px 24px}
+.job:last-child{padding-bottom:0}
+.job::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--line)}
+.job.now::before{border-color:var(--accent);background:var(--accent-soft)}
+.job h3{margin:0;font:700 1.3rem/1.25 var(--display);letter-spacing:-.01em}
+.job .co{grid-column:1;color:var(--ink);font-weight:500}
+.job .when{grid-row:1;grid-column:2;font:500 14px/1.6 var(--mono);color:var(--muted);white-space:nowrap}
+.job .now-pill{font:600 11.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mint);border:1px solid currentColor;border-radius:999px;padding:4px 8px;margin-left:8px;vertical-align:2px}
+.job ul{grid-column:1/-1;margin:6px 0 0;padding-left:20px;color:var(--muted);display:flex;flex-direction:column;gap:6px;max-width:68ch}
+.edu{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.edu b{font:600 17px/1.4 var(--body)} .edu span{color:var(--muted)} .edu .mono{font-size:14px}
+
+/* contact */
+.contact{display:flex;flex-direction:column;gap:12px}
+.contact-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.contact-row .k2{font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);width:64px}
+.contact-row .val{font:500 15.5px/1.3 var(--mono);color:var(--ink);user-select:all;overflow-wrap:anywhere;flex:1;min-width:0}
+.contact-row a.val{text-decoration:none}.contact-row a.val:hover{color:var(--accent)}
+.copy{font:600 13px/1 var(--body);padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.copy:hover{border-color:var(--accent)}
+.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:620px){.job{grid-template-columns:1fr;padding-left:24px}.job .when{grid-row:auto;grid-column:1}}
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <div class="in">
+    <div class="who">
+      <div class="id">
+        <img class="avatar" src="https://avatars.githubusercontent.com/u/16236419?v=4&s=240" alt="Portrait of Rey Robert Castro" width="72" height="72">
+        <span class="status"><i></i>Philippines · Open to opportunities</span>
+      </div>
+      <h1>Rey Robert Castro<br><span>builds Android apps.</span></h1>
+      <p class="lede">Android developer with <b>9+ years</b> in software. From Java and SQLite to <b>Kotlin, Jetpack Compose</b> and <b>Flutter</b>, with a soft spot for clean architecture.</p>
+      <div class="links">
+        <a class="btn primary" href="https://github.com/castroreyrobert" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub profile</a>
+        <a class="btn" href="#experience">Experience ↓</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="ide" aria-label="Profile written as a Gradle config">
+      <div class="ide-bar"><i></i><i></i><i></i><span>app/build.gradle.kts</span></div>
+<pre><span class="k">android</span> {
+  defaultConfig {
+    applicationId = <span class="s">"dev.castroreyrobert"</span>
+    minSdk        = <span class="n">24</span>
+    versionName   = <span class="s">"3.0"</span>
+  }
+}
+<span class="k">dependencies</span> {
+  implementation(<span class="s">"kotlin"</span>)
+  implementation(<span class="s">"jetpack-compose"</span>)
+  implementation(<span class="s">"flutter"</span>)  <span class="c">// cross-platform</span>
+}</pre>
+    </div>
+    <div class="stats">
+      <div><b>2017</b><span>Started professionally</span></div>
+      <div><b>3</b><span>Companies</span></div>
+      <div><b>65</b><span>Public repositories</span></div>
+      <div><b>BS IT</b><span>STI College Tagbilaran</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="in">
+
+<section class="sec" id="experience" aria-labelledby="exp-h">
+  <div class="sec-head">
+    <span class="eyebrow">Experience</span>
+    <h2 id="exp-h">Where I've worked</h2>
+  </div>
+  <div class="jobs">
+    <div class="job now">
+      <h3>Android Developer<span class="now-pill">Current</span></h3>
+      <span class="when">Jan 2024 – Present</span>
+      <span class="co">Eplayment Corporation</span>
+      <ul>
+        <li>Build native Android apps with Kotlin and the Android SDK.</li>
+        <li>Turn UI/UX wireframes into working apps that match the design and the user's needs.</li>
+        <li>Monitor crash analytics and fix issues early to keep apps stable.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <h3>Android Developer</h3>
+      <span class="when">Dec 2019 – Jan 2024</span>
+      <span class="co">Appetiser Pty Ltd</span>
+      <ul>
+        <li>Designed and built Android apps in Java and Kotlin to client specifications.</li>
+        <li>Evaluated new Android tools and patterns and brought the useful ones into projects.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <h3>Software Engineer</h3>
+      <span class="when">Feb 2017 – Dec 2019</span>
+      <span class="co">Kyocera Document Solutions · Cebu City</span>
+      <ul>
+        <li>Built custom native mobile apps to client specifications.</li>
+        <li>Tracked down and fixed bugs, and documented fixes in the support team's knowledge base.</li>
+        <li>Wrote technical manuals covering specs and test methods for future projects.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="edu">
+    <div><b>BS Information Technology</b><br><span>STI College Tagbilaran</span></div>
+    <span class="mono">2009 – 2013</span>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="stack-h">
+  <div class="sec-head">
+    <span class="eyebrow">Toolkit</span>
+    <h2 id="stack-h">What I work with</h2>
+  </div>
+  <div class="stack">
+    <div class="skill"><div class="ico"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div><h3>Android</h3>
+      <ul><li>Kotlin</li><li>Java</li><li>Compose</li><li>Navigation</li><li>Room</li><li>Coroutines</li><li>RxJava 2</li></ul></div>
+    <div class="skill"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></div><h3>Architecture</h3>
+      <ul><li>MVVM</li><li>Repository</li><li>Clean Architecture</li><li>Dagger</li></ul></div>
+    <div class="skill"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/><circle cx="12" cy="12" r="8"/></svg></div><h3>Data &amp; network</h3>
+      <ul><li>Retrofit</li><li>Moshi</li><li>Dio</li><li>Glide</li><li>Firebase</li></ul></div>
+    <div class="skill"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="8" height="14" rx="2"/><rect x="13" y="5" width="8" height="14" rx="2"/></svg></div><h3>Cross-platform</h3>
+      <ul><li>Flutter</li><li>BLoC</li><li>Kotlin Multiplatform</li></ul></div>
+  </div>
+</section>
+
+<section class="sec" id="work" aria-labelledby="log-h">
+  <div class="sec-head">
+    <span class="eyebrow">Changelog</span>
+    <h2 id="log-h">Selected work, release by release</h2>
+    <p>Ten years of Android, grouped the way an app ships: by version.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="release">
+      <div class="ver"><span class="v">v3.x</span><span class="y">2024 – now</span><span class="t">Compose-first Android and Flutter.</span></div>
+      <div class="cards">
+        <a class="repo" href="https://github.com/castroreyrobert/article_hub" target="_blank" rel="noopener">
+          <div class="repo-top"><h3>article_hub</h3><span class="lang l-dart"><span class="dot"></span>Dart</span></div>
+          <p>Flutter app on Clean Architecture with BLoC and type-safe networking. Login, signup, articles with detail views, and persisted sessions.</p>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Retrofit + Dio</span></div>
+        </a>
+        <a class="repo" href="https://github.com/castroreyrobert/codingchallenge" target="_blank" rel="noopener">
+          <div class="repo-top"><h3>codingchallenge</h3><span class="lang l-kotlin"><span class="dot"></span>Kotlin</span></div>
+          <p>Rebuilds an app's home screen from an API response and caches it locally so it survives a restart. Android 7.0 to 14.</p>
+          <div class="tags"><span class="tag">MVVM</span><span class="tag">Room</span><span class="tag">Coroutines</span></div>
+        </a>
+      </div>
+    </div>
+
+    <div class="release">
+      <div class="ver"><span class="v">v2.x</span><span class="y">2018 – 2021</span><span class="t">The switch to Kotlin, Rx and DI.</span></div>
+      <div class="cards">
+        <a class="repo" href="https://github.com/castroreyrobert/iTunesSearchListApp" target="_blank" rel="noopener">
+          <div class="repo-top"><h3>iTunesSearchListApp</h3><span class="lang l-kotlin"><span class="dot"></span>Kotlin</span></div>
+          <p>Master–detail app over the iTunes Search API. Restores your list, selected track and last visit when you come back.</p>
+          <div class="tags"><span class="tag">MVVM</span><span class="tag">RxJava 2</span><span class="tag">Retrofit</span></div>
+        </a>
+        <a class="repo" href="https://github.com/castroreyrobert/ShoppingCart" target="_blank" rel="noopener">
+          <div class="repo-top"><h3>ShoppingCart</h3><span class="lang l-kotlin"><span class="dot"></span>Kotlin</span></div>
+          <p>Cart that updates in real time and keeps your items for the session. Each order gets a unique ID and is saved as JSON.</p>
+          <div class="tags"><span class="tag">Dagger</span><span class="tag">Jetpack</span></div>
+        </a>
+        <div class="more"><span class="lbl">Also:</span>
+          <a href="https://github.com/castroreyrobert/Kotlin-Sample" target="_blank" rel="noopener">Kotlin-Sample</a>
+          <a href="https://github.com/castroreyrobert/Dagger-2.10-version" target="_blank" rel="noopener">Dagger 2.10</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="release">
+      <div class="ver"><span class="v">v1.x</span><span class="y">2016 – 2017</span><span class="t">Java, SQLite, Firebase and lots of demos.</span></div>
+      <div class="cards">
+        <a class="repo" href="https://github.com/castroreyrobert/ListView-using-fragment-with-SQLiteDatabase" target="_blank" rel="noopener">
+          <div class="repo-top"><h3>ListView + SQLite</h3><span class="lang l-java"><span class="dot"></span>Java</span></div>
+          <p>Fragment-based list backed by SQLite. My most-starred original repo.</p>
+          <div class="tags"><span class="tag">SQLite</span><span class="tag">Fragments</span><span class="tag">★ 3</span></div>
+        </a>
+        <a class="repo" href="https://github.com/castroreyrobert/FireApp" target="_blank" rel="noopener">
+          <div class="repo-top"><h3>FireApp</h3><span class="lang l-java"><span class="dot"></span>Java</span></div>
+          <p>Firebase on Android: sign-in, Realtime Database and push notifications through Cloud Messaging.</p>
+          <div class="tags"><span class="tag">Auth</span><span class="tag">Realtime DB</span><span class="tag">FCM</span></div>
+        </a>
+        <div class="more"><span class="lbl">Also:</span>
+          <a href="https://github.com/castroreyrobert/Fragment-With-RecyclerView-With-Navigation-View" target="_blank" rel="noopener">Navigation Drawer</a>
+          <a href="https://github.com/castroreyrobert/Android-Studio-SharedPreferences-and-SQLiteDatabase-Smoking-Tracks-" target="_blank" rel="noopener">Smoking Tracker</a>
+          <a href="https://github.com/castroreyrobert/Custom-Tab-Layout" target="_blank" rel="noopener">Custom Tabs</a>
+          <a href="https://github.com/castroreyrobert/Android-Studio-JSON-Parsing-Demo-for-Windows-7" target="_blank" rel="noopener">JSON Parsing</a>
+          <a href="https://github.com/castroreyrobert/Android-Studio-Animation-Demo" target="_blank" rel="noopener">Animations</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="study-h">
+  <div class="sec-head">
+    <span class="eyebrow">Learning</span>
+    <h2 id="study-h">Currently studying</h2>
+  </div>
+  <div class="study">
+    <a href="https://github.com/castroreyrobert/nav3-recipes" target="_blank" rel="noopener"><b>nav3-recipes</b><span>Patterns for Jetpack Navigation 3</span></a>
+    <a href="https://github.com/castroreyrobert/compose-samples" target="_blank" rel="noopener"><b>compose-samples</b><span>Official Jetpack Compose samples</span></a>
+    <a href="https://github.com/castroreyrobert/DroidconKotlin" target="_blank" rel="noopener"><b>DroidconKotlin</b><span>Kotlin Multiplatform in a real app</span></a>
+    <a href="https://github.com/castroreyrobert/flutter-clean-architecture-example" target="_blank" rel="noopener"><b>flutter-clean-arch</b><span>BLoC, Riverpod and Provider side by side</span></a>
+  </div>
+</section>
+
+<section class="cta" id="contact" aria-labelledby="cta-h">
+  <h2 id="cta-h">Let's build something.</h2>
+  <div class="contact">
+    <div class="contact-row"><span class="k2">Email</span><span class="val" id="email">reyrobertcastro@gmail.com</span><button class="copy" id="copy-email" type="button">Copy</button></div>
+    <div class="contact-row"><span class="k2">GitHub</span><a class="val" href="https://github.com/castroreyrobert" target="_blank" rel="noopener">github.com/castroreyrobert</a></div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer><div class="in">
+  <span>© 2026 Rey Robert Castro · Philippines</span>
+  <span class="mono">Built from public GitHub data</span>
+</div></footer>
+
+<script>
+document.getElementById('copy-email').addEventListener('click',function(){
+  var b=this,t=document.getElementById('email').textContent;
+  function done(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1600)}
+  try{navigator.clipboard.writeText(t).then(done,sel)}catch(e){sel()}
+  function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('email'));var x=getSelection();x.removeAllRanges();x.addRange(r);b.textContent='Selected'}
+});
+</script>
+</body>
+</html>
